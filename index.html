@@ -9,9 +9,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://unpkg.com/mvp.css">
     <script src="https://box.backtory.com/metricx/sdk/web/metrix.umd-1.5.3.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+    </script>
     <style>
         button:active {
-            background: red;
+            background: darkseagreen;
         }
     </style>
 </head>
@@ -63,6 +77,25 @@
         </div>
         <div id="event-box" hidden>
             <hr/>
+            <div id="general-event">
+                <div style="margin-top: 100px">
+                    <h3>Send
+                        <span style="color: red; font-weight: bold">Sample Event With Slug</span>
+                        event with custom attribute:</h3>
+                    <h3>Event Slug:</h3>
+                    <input id="sample-event-c-slug-input" placeholder="Event Slug">
+                    <!--                        <div style="display: flex; justify-content: space-between">-->
+                    <!--                            <label for="sample-event-c-att-key-input">Key:</label><input id="sample-event-c-att-key-input" placeholder="key">-->
+                    <!--                            <label for="sample-event-c-att-value-input">Value:</label><input id="sample-event-c-att-value-input" placeholder="value">-->
+                    <!--                        </div>-->
+                    <!--                        <div style="display: flex; justify-content: space-between">-->
+                    <!--                            <label for="sample-event-c-att-key2-input">Key:</label><input id="sample-event-c-att-key2-input" placeholder="key">-->
+                    <!--                            <label for="sample-event-c-att-value2-input">Value:</label><input id="sample-event-c-att-value2-input" placeholder="value">-->
+                    <!--                        </div>-->
+                    <button id="sample-event-button" disabled>Send <span style="color: yellowgreen; font-weight: bold">Sample Event</span></button>
+                </div>
+            </div>
+            <hr/>
             <div style="margin-top: 100px">
                 <h3>Send
                     <span style="color: red; font-weight: bold">Page View</span>
@@ -77,6 +110,7 @@
                 <!--        </div>-->
                 <button id="page-view-event-button">Send <span style="color: yellowgreen; font-weight: bold">Page View</span></button>
             </div>
+            <hr />
             <div style="margin-top: 100px; text-align: end">
                 <h3>Send
                     <span style="color: red; font-weight: bold">Select Item</span>
@@ -212,6 +246,7 @@
                 <button id="final-purchase-event-button">Send <span style="color: yellowgreen; font-weight: bold;">Final Purchase</span></button>
             </div>
         </div>
+
     </div>
 
     <script>
@@ -331,10 +366,10 @@
         }
 
         document.getElementById("page-view-event-button").onclick = () => {
-            const key = document.getElementById("page-view-event-c-att-key-input").value;
-            const value = document.getElementById("page-view-event-c-att-value-input").value;
-            const key2 = document.getElementById("page-view-event-c-att-key2-input").value;
-            const value2 = document.getElementById("page-view-event-c-att-value2-input").value;
+            const key = document.getElementById("page-view-event-c-att-key-input")?.value;
+            const value = document.getElementById("page-view-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("page-view-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("page-view-event-c-att-value2-input")?.value;
 
             const attributes = {};
             if (key && value)
@@ -343,14 +378,17 @@
                 attributes[key2] = value2;
 
             Metrix.newEvent('atqha', attributes);
-
+            Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
         }
 
         document.getElementById("select-item-event-button").onclick = () => {
-            const key = document.getElementById("select-item-event-c-att-key-input").value;
-            const value = document.getElementById("select-item-event-c-att-value-input").value;
-            const key2 = document.getElementById("select-item-event-c-att-key2-input").value;
-            const value2 = document.getElementById("select-item-event-c-att-value2-input").value;
+            const key = document.getElementById("select-item-event-c-att-key-input")?.value;
+            const value = document.getElementById("select-item-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("select-item-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("select-item-event-c-att-value2-input")?.value;
 
             const attributes = {};
             if (key && value)
@@ -359,14 +397,17 @@
                 attributes[key2] = value2;
 
             Metrix.newEvent('zstnn', attributes);
-
+            Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
         }
 
         document.getElementById("view-item-event-button").onclick = () => {
-            const key = document.getElementById("view-item-event-c-att-key-input").value;
-            const value = document.getElementById("view-item-event-c-att-value-input").value;
-            const key2 = document.getElementById("view-item-event-c-att-key2-input").value;
-            const value2 = document.getElementById("view-item-event-c-att-value2-input").value;
+            const key = document.getElementById("view-item-event-c-att-key-input")?.value;
+            const value = document.getElementById("view-item-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("view-item-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("view-item-event-c-att-value2-input")?.value;
 
             const attributes = {};
             if (key && value)
@@ -375,14 +416,17 @@
                 attributes[key2] = value2;
 
             Metrix.newEvent('iwotv', attributes);
-
+            Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
         }
 
         document.getElementById("register-user-event-button").onclick = () => {
-            const key = document.getElementById("register-user-event-c-att-key-input").value;
-            const value = document.getElementById("register-user-event-c-att-value-input").value;
-            const key2 = document.getElementById("register-user-event-c-att-key2-input").value;
-            const value2 = document.getElementById("register-user-event-c-att-value2-input").value;
+            const key = document.getElementById("register-user-event-c-att-key-input")?.value;
+            const value = document.getElementById("register-user-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("register-user-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("register-user-event-c-att-value2-input")?.value;
 
             const attributes = {};
             if (key && value)
@@ -391,13 +435,17 @@
                 attributes[key2] = value2;
 
             Metrix.newEvent('febni', attributes);
+            Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
         }
 
         document.getElementById("view-cart-event-button").onclick = () => {
-            const key = document.getElementById("view-cart-event-c-att-key-input").value;
-            const value = document.getElementById("view-cart-event-c-att-value-input").value;
-            const key2 = document.getElementById("view-cart-event-c-att-key2-input").value;
-            const value2 = document.getElementById("view-cart-event-c-att-value2-input").value;
+            const key = document.getElementById("view-cart-event-c-att-key-input")?.value;
+            const value = document.getElementById("view-cart-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("view-cart-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("view-cart-event-c-att-value2-input")?.value;
 
             const attributes = {};
             if (key && value)
@@ -406,14 +454,18 @@
                 attributes[key2] = value2;
 
             Metrix.newEvent('npduc', attributes);
+            Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
         }
 
 
         document.getElementById("shipion-event-button").onclick = () => {
-            const key = document.getElementById("shipion-event-c-att-key-input").value;
-            const value = document.getElementById("shipion-event-c-att-value-input").value;
-            const key2 = document.getElementById("shipion-event-c-att-key2-input").value;
-            const value2 = document.getElementById("shipion-event-c-att-value2-input").value;
+            const key = document.getElementById("shipion-event-c-att-key-input")?.value;
+            const value = document.getElementById("shipion-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("shipion-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("shipion-event-c-att-value2-input")?.value;
 
             const attributes = {};
             if (key && value)
@@ -422,13 +474,17 @@
                 attributes[key2] = value2;
 
             Metrix.newEvent('kbjqc', attributes);
+            Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
         }
 
         document.getElementById("add-payment-info-event-button").onclick = () => {
-            const key = document.getElementById("add-payment-info-event-c-att-key-input").value;
-            const value = document.getElementById("add-payment-info-event-c-att-value-input").value;
-            const key2 = document.getElementById("add-payment-info-event-c-att-key2-input").value;
-            const value2 = document.getElementById("add-payment-info-event-c-att-value2-input").value;
+            const key = document.getElementById("add-payment-info-event-c-att-key-input")?.value;
+            const value = document.getElementById("add-payment-info-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("add-payment-info-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("add-payment-info-event-c-att-value2-input")?.value;
 
             const attributes = {};
             if (key && value)
@@ -437,13 +493,17 @@
                 attributes[key2] = value2;
 
             Metrix.newEvent('vbste', attributes);
+            Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
         }
 
         document.getElementById("act-to-payment-info-event-button").onclick = () => {
-            const key = document.getElementById("act-to-payment-info-event-c-att-key-input").value;
-            const value = document.getElementById("act-to-payment-info-event-c-att-value-input").value;
-            const key2 = document.getElementById("act-to-payment-info-event-c-att-key2-input").value;
-            const value2 = document.getElementById("act-to-payment-info-event-c-att-value2-input").value;
+            const key = document.getElementById("act-to-payment-info-event-c-att-key-input")?.value;
+            const value = document.getElementById("act-to-payment-info-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("act-to-payment-info-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("act-to-payment-info-event-c-att-value2-input")?.value;
 
             const attributes = {};
             if (key && value)
@@ -452,13 +512,17 @@
                 attributes[key2] = value2;
 
             Metrix.newEvent('ayarh', attributes);
+            Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
         }
 
         document.getElementById("final-purchase-event-button").onclick = () => {
-            const key = document.getElementById("final-purchase-event-c-att-key-input").value;
-            const value = document.getElementById("final-purchase-event-c-att-value-input").value;
-            const key2 = document.getElementById("final-purchase-event-c-att-key2-input").value;
-            const value2 = document.getElementById("final-purchase-event-c-att-value2-input").value;
+            const key = document.getElementById("final-purchase-event-c-att-key-input")?.value;
+            const value = document.getElementById("final-purchase-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("final-purchase-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("final-purchase-event-c-att-value2-input")?.value;
 
             const attributes = {};
             if (key && value)
@@ -467,6 +531,55 @@
                 attributes[key2] = value2;
 
             Metrix.newEvent('xqqzf', attributes);
+            Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
+        }
+
+        document.getElementById("add-to-cart-event-button").onclick = () => {
+            const key = document.getElementById("add-to-cart-event-c-att-key-input")?.value;
+            const value = document.getElementById("add-to-cart-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("add-to-cart-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("add-to-cart-event-c-att-value2-input")?.value;
+
+            const attributes = {};
+            if (key && value)
+                attributes[key] = value;
+            if (key2 && value2)
+                attributes[key2] = value2;
+
+            Metrix.newEvent('xhrrj', attributes);
+            Toast.fire({
+                icon: "success",
+                title: "Event Sent"
+            });
+        }
+
+        document.getElementById("sample-event-button").onclick = () => {
+            const key = document.getElementById("sample-event-c-att-key-input")?.value;
+            const value = document.getElementById("sample-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("sample-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("sample-event-c-att-value2-input")?.value;
+
+            const attributes = {};
+            if (key && value)
+                attributes[key] = value;
+            if (key2 && value2)
+                attributes[key2] = value2;
+            const eventSlug = document.getElementById('sample-event-c-slug-input').value;
+            if (eventSlug) {
+                Metrix.newEvent(eventSlug);
+                Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
+            }
+        }
+
+        document.getElementById('sample-event-c-slug-input').oninput = (e) => {
+            const value = e.target.value;
+            document.getElementById('sample-event-button').disabled = !(value.length === 5)
         }
 
     </script>
