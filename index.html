@@ -36,6 +36,8 @@
         <input id="init-appid-input" placeholder="App ID">
         <h3>API Key:</h3>
         <input id="init-apikey-input" placeholder="API KEY">
+        <h3>Push public key:</h3>
+        <input id="init-public-key-input" placeholder="PUBLIC KEY">
         <button id="init-button">Init</button>
         <button id="close-button">Close</button>
         <p id="init-status" style="color: red;">Not initialized</p>
@@ -254,19 +256,21 @@
         let username = localStorage.getItem("username");
         const appId = localStorage.getItem('appId');
         const apiKey = localStorage.getItem('apiKey');
-        const PUSH_PUBLIC_KEY = "BG_VbzDyu8W8ROIaSVgcE0EDFIPrwewnb3jTfat5jKjedyFv3UJGWdaPzwA7585-qH_0AAW975ldKa2O1D8kffU"
-        const config = {
-            push: {
-                enabled : true, // defaults to false but if set to true you must provide publicKey.
-                publicKey: PUSH_PUBLIC_KEY, // your push subscription public key.
-                showBell: true
-            }
-        }
+        const publicKey = localStorage.getItem('publicKey');
 
-        if (appId && apiKey) {
+        if (appId && apiKey && publicKey) {
+
+            const config = {
+                push: {
+                    enabled : true, // defaults to false but if set to true you must provide publicKey.
+                    publicKey: publicKey, // your push subscription public key.
+                    showBell: true
+                }
+            }
             Metrix.init(appId, apiKey, config);
             document.getElementById('init-appid-input').value = appId;
             document.getElementById('init-apikey-input').value = apiKey;
+            document.getElementById('init-public-key-input').value = publicKey;
             document.getElementById('init-status').innerText = 'Metrix initialized';
             document.getElementById('init-status').style.color = 'green'
             document.getElementById('send-event-box').removeAttribute('hidden');
@@ -285,11 +289,20 @@
         document.getElementById('init-button').onclick = () => {
             const appId = document.getElementById('init-appid-input').value;
             const apiKey = document.getElementById('init-apikey-input').value;
-            if (appId.length && apiKey.length) {
+            const publicKey = document.getElementById('init-public-key-input').value;
+            if (appId.length && apiKey.length && publicKey.length) {
                 localStorage.setItem('appId', appId);
                 localStorage.setItem('apiKey', apiKey);
+                localStorage.setItem('publicKey', publicKey);
                 document.getElementById('init-status').innerText = 'Metrix initialized';
-                document.getElementById('init-status').style.color = 'green'
+                document.getElementById('init-status').style.color = 'green';
+                const config = {
+                    push: {
+                        enabled : true, // defaults to false but if set to true you must provide publicKey.
+                        publicKey: publicKey, // your push subscription public key.
+                        showBell: true
+                    }
+                }
                 Metrix.init(appId, apiKey, config);
                 document.getElementById('send-event-box').removeAttribute('hidden')
             }
