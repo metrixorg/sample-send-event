@@ -93,17 +93,17 @@
             <button id="user-att-button">Send User</button>
         </div>
         <div id="event-box" hidden>
-<!--            <hr/>-->
-<!--            <div id="general-event">-->
-<!--                <div style="margin-top: 100px">-->
-<!--                    <h3>Send-->
-<!--                        <span style="color: red; font-weight: bold">Sample Event With Slug</span>-->
-<!--                        event with custom attribute:</h3>-->
-<!--                    <h3>Event Slug:</h3>-->
-<!--                    <input id="sample-event-c-slug-input" placeholder="Event Slug">-->
-<!--                    <button id="sample-event-button" disabled>Send <span style="color: yellowgreen; font-weight: bold">Sample Event</span></button>-->
-<!--                </div>-->
-<!--            </div>-->
+           <hr/>
+           <div id="general-event">
+               <div style="margin-top: 100px">
+                   <h3>Send
+                       <span style="color: red; font-weight: bold">Sample Event With Slug</span>
+                       event with custom attribute:</h3>
+                   <h3>Event Slug:</h3>
+                   <input id="sample-event-c-slug-input" placeholder="Event Slug">
+                   <button id="sample-event-button" disabled>Send <span style="color: yellowgreen; font-weight: bold">Sample Event</span></button>
+               </div>
+           </div>
             <hr />
             <div >
                 <button id="view-item-event-button"><span style="color: yellowgreen; font-weight: bold">View Item</span></button>
@@ -330,31 +330,31 @@
 
 
 
-        // document.getElementById("sample-event-button").onclick = () => {
-        //     const key = document.getElementById("sample-event-c-att-key-input")?.value;
-        //     const value = document.getElementById("sample-event-c-att-value-input")?.value;
-        //     const key2 = document.getElementById("sample-event-c-att-key2-input")?.value;
-        //     const value2 = document.getElementById("sample-event-c-att-value2-input")?.value;
-        //
-        //     const attributes = {};
-        //     if (key && value)
-        //         attributes[key] = value;
-        //     if (key2 && value2)
-        //         attributes[key2] = value2;
-        //     const eventSlug = document.getElementById('sample-event-c-slug-input').value;
-        //     if (eventSlug) {
-        //         Metrix.newEvent(eventSlug);
-        //         Toast.fire({
-        //             icon: "success",
-        //             title: "Event Sent"
-        //         });
-        //     }
-        // }
+        document.getElementById("sample-event-button").onclick = () => {
+            const key = document.getElementById("sample-event-c-att-key-input")?.value;
+            const value = document.getElementById("sample-event-c-att-value-input")?.value;
+            const key2 = document.getElementById("sample-event-c-att-key2-input")?.value;
+            const value2 = document.getElementById("sample-event-c-att-value2-input")?.value;
+        
+            const attributes = {};
+            if (key && value)
+                attributes[key] = value;
+            if (key2 && value2)
+                attributes[key2] = value2;
+            const eventSlug = document.getElementById('sample-event-c-slug-input').value;
+            if (eventSlug) {
+                Metrix.newEvent(eventSlug);
+                Toast.fire({
+                    icon: "success",
+                    title: "Event Sent"
+                });
+            }
+        }
 
-        // document.getElementById('sample-event-c-slug-input').oninput = (e) => {
-        //     const value = e.target.value;
-        //     document.getElementById('sample-event-button').disabled = !(value.length === 5)
-        // }
+        document.getElementById('sample-event-c-slug-input').oninput = (e) => {
+            const value = e.target.value;
+            document.getElementById('sample-event-button').disabled = !(value.length === 5)
+        }
 
     </script>
 </main>
