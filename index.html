@@ -81,6 +81,8 @@
                     id="email-input" placeholder="Email"></div>
             <div style="display: flex; justify-content: space-between"><label for="city-input">City:</label><input
                     id="city-input" placeholder="City"></div>
+            <div style="display: flex; justify-content: space-between"><label for="birth-date-input">Birth Date:</label><input
+                id="birth-date-input" placeholder="Timestamp"></div>
             <h5>Custom Attributes:</h5>
             <div style="display: flex; justify-content: space-between">
                 <label for="user-c-att-key-input">Key:</label><input id="user-c-att-key-input" placeholder="key">
@@ -230,6 +232,7 @@
             const phone = document.getElementById("phone-input").value;
             const email = document.getElementById("email-input").value;
             const city = document.getElementById('city-input').value;
+            const birthDate = document.getElementById('birth-date-input').value;
             const key = document.getElementById("user-c-att-key-input").value;
             const value = document.getElementById("user-c-att-value-input").value;
             const key2 = document.getElementById("user-c-att-key2-input").value;
@@ -249,6 +252,9 @@
 
             if (city)
                 Metrix.setCity(city);
+
+            if (city)
+                Metrix.setBirthday(city);
 
             if (key && value)
                 Metrix.setCustomAttribute(key, value)
