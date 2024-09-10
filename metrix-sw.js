@@ -1,1 +1,1 @@
-importScripts('https://box.backtory.com/metricx/sdk/web/metrixweb-sw.js');
+importScripts('https://cdn.metrix.ir/sdk/web/metrixweb-sw.js');
