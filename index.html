@@ -101,31 +101,20 @@
                    <h3>Send
                        <span style="color: red; font-weight: bold">Sample Event With Slug</span>
                        event with custom attribute:</h3>
-                   <h3>Event Slug:</h3>
+                   <h4>Event Slug:</h4>
                    <input id="sample-event-c-slug-input" placeholder="Event Slug">
+                   <h4>Custom attributes (Optional): </h4>
+                   <div style="display: flex; justify-content: space-between">
+                       <label for="sample-event-c-att-key-input">Key:</label><input id="sample-event-c-att-key-input" placeholder="key">
+                       <label for="sample-event-c-att-value-input">Value:</label><input id="sample-event-c-att-value-input" placeholder="value">
+                   </div>
+                   <div style="display: flex; justify-content: space-between">
+                       <label for="sample-event-c-att-key2-input">Key:</label><input id="sample-event-c-att-key2-input" placeholder="key">
+                       <label for="sample-event-c-att-value2-input">Value:</label><input id="sample-event-c-att-value2-input" placeholder="value">
+                   </div>
                    <button id="sample-event-button" disabled>Send <span style="color: yellowgreen; font-weight: bold">Sample Event</span></button>
                </div>
            </div>
-            <hr />
-            <div >
-                <button id="view-item-event-button"><span style="color: yellowgreen; font-weight: bold">View Item</span></button>
-            </div>
-            <hr />
-            <div id="shoe-product-box" hidden>
-                <div class="card">
-                    <img src="https://www.banimode.com/1123504/104976.jpg" alt="Avatar" style="width:100%">
-                    <div class="container">
-                        <div style="text-align: center">
-                            <button id="add-to-cart-event-button"><span style="font-weight: bold">Add To Cart</span></button>
-                        </div>
-                        <div style="margin-top: 20px; text-align: center">
-                            <button id="final-purchase-event-button" style="background-color: green"><span style="font-weight: bold">Final Purchase</span></button>
-                        </div>
-                    </div>
-
-            </div>
-        </div>
-
     </div>
 
     <script>
@@ -188,7 +177,8 @@
         document.getElementById('close-button').onclick = () => {
             localStorage.removeItem('appId');
             localStorage.removeItem('apiKey');
-            localStorage.removeItem("username")
+            localStorage.removeItem("username");
+            Metrix.deauthorizeUser()
             window.location.reload();
         }
 
@@ -206,7 +196,7 @@
         document.getElementById("logout-button").onclick = () => {
             username = undefined
             localStorage.removeItem("username")
-            Metrix.authorizeUser(username)
+            Metrix.deauthorizeUser()
             document.getElementById("login-button").disabled = false;
             document.getElementById('login-input').value = '';
             document.getElementById("login-status").innerHTML = "You're logged out!!!"
@@ -263,76 +253,6 @@
         }
 
 
-        document.getElementById("view-item-event-button").onclick = () => {
-            const key = document.getElementById("view-item-event-c-att-key-input")?.value;
-            const value = document.getElementById("view-item-event-c-att-value-input")?.value;
-            const key2 = document.getElementById("view-item-event-c-att-key2-input")?.value;
-            const value2 = document.getElementById("view-item-event-c-att-value2-input")?.value;
-
-            const attributes = {
-                productName: 'کفش چرم مشهد',
-                price: '5400000'
-            };
-            if (key && value)
-                attributes[key] = value;
-            if (key2 && value2)
-                attributes[key2] = value2;
-
-            Metrix.newEvent('jqokq', attributes);
-            document.getElementById('shoe-product-box').removeAttribute('hidden')
-            document.getElementById('shoe-product-box').style.display = 'flex';
-            document.getElementById('shoe-product-box').style.justifyContent = 'center';
-
-            Toast.fire({
-                    icon: "success",
-                    title: "Event Sent"
-                });
-        }
-
-        document.getElementById("add-to-cart-event-button").onclick = () => {
-            const key = document.getElementById("add-to-cart-event-c-att-key-input")?.value;
-            const value = document.getElementById("add-to-cart-event-c-att-value-input")?.value;
-            const key2 = document.getElementById("add-to-cart-event-c-att-key2-input")?.value;
-            const value2 = document.getElementById("add-to-cart-event-c-att-value2-input")?.value;
-
-            const attributes = {
-                productName: 'کفش چرم مشهد',
-                price: '5400000'
-            };
-            if (key && value)
-                attributes[key] = value;
-            if (key2 && value2)
-                attributes[key2] = value2;
-
-            Metrix.newEvent('ylpov', attributes);
-            Toast.fire({
-                icon: "success",
-                title: "Event Sent"
-            });
-        }
-
-        document.getElementById("final-purchase-event-button").onclick = () => {
-            const key = document.getElementById("final-purchase-event-c-att-key-input")?.value;
-            const value = document.getElementById("final-purchase-event-c-att-value-input")?.value;
-            const key2 = document.getElementById("final-purchase-event-c-att-key2-input")?.value;
-            const value2 = document.getElementById("final-purchase-event-c-att-value2-input")?.value;
-
-            const attributes = {
-                productName: 'کفش چرم مشهد',
-                price: '5400000'
-            };
-            if (key && value)
-                attributes[key] = value;
-            if (key2 && value2)
-                attributes[key2] = value2;
-
-            Metrix.newEvent('ockgp', attributes);
-            Toast.fire({
-                    icon: "success",
-                    title: "Event Sent"
-                });
-        }
-
 
 
         document.getElementById("sample-event-button").onclick = () => {
@@ -348,7 +268,7 @@
                 attributes[key2] = value2;
             const eventSlug = document.getElementById('sample-event-c-slug-input').value;
             if (eventSlug) {
-                Metrix.newEvent(eventSlug);
+                Metrix.newEvent(eventSlug, attributes);
                 Toast.fire({
                     icon: "success",
                     title: "Event Sent"
