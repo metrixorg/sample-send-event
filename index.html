@@ -119,6 +119,27 @@
                    <button id="sample-event-button" disabled>Send <span style="color: yellowgreen; font-weight: bold">Sample Event</span></button>
                </div>
            </div>
+
+            <hr/>
+            <div id="business-event">
+                <div style="margin-top: 100px">
+                    <h3>Send
+                        <span style="color: mediumpurple; font-weight: bold">Business Event With Slug</span>
+                        event with custom attribute:</h3>
+                    <h4>Business Event Slug:</h4>
+                    <input id="sample-business-event-c-slug-input" placeholder="Business Event Slug">
+                    <h4>Custom attributes (Optional): </h4>
+                    <div style="display: flex; justify-content: space-between">
+                        <label for="sample-business-event-c-att-key-input">Key:</label><input id="sample-business-event-c-att-key-input" placeholder="key">
+                        <label for="sample-business-event-c-att-value-input">Value:</label><input id="sample-business-event-c-att-value-input" placeholder="value">
+                    </div>
+                    <div style="display: flex; justify-content: space-between">
+                        <label for="sample-business-event-c-att-key2-input">Key:</label><input id="sample-business-event-c-att-key2-input" placeholder="key">
+                        <label for="sample-business-event-c-att-value2-input">Value:</label><input id="sample-business-event-c-att-value2-input" placeholder="value">
+                    </div>
+                    <button id="sample-business-event-button" disabled>Send <span style="color: orchid; font-weight: bold">Business Event</span></button>
+                </div>
+            </div>
     </div>
 
     </div>
@@ -301,9 +322,73 @@
                 }
             }
 
+            document.getElementById("sample-business-event-button").onclick = () => {
+                const key = document.getElementById("sample-business-event-c-att-key-input")?.value;
+                const value = document.getElementById("sample-business-event-c-att-value-input")?.value;
+                const key2 = document.getElementById("sample-business-event-c-att-key2-input")?.value;
+                const value2 = document.getElementById("sample-business-event-c-att-value2-input")?.value;
+
+                function generateUUID() {
+                    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                        const r = Math.random() * 16 | 0;
+                        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                        return v.toString(16);
+                    });
+                }
+
+                const attributes = {};
+                if (key && value)
+                    attributes[key] = value;
+                if (key2 && value2)
+                    attributes[key2] = value2;
+                const eventSlug = document.getElementById('sample-business-event-c-slug-input').value;
+                if (eventSlug) {
+
+                    const myHeaders = new Headers();
+                    myHeaders.append("content-type", "application/json");
+                    myHeaders.append("x-api-key", apiKey);
+                    myHeaders.append("x-application-id", appId);
+
+                    const raw = JSON.stringify({
+                        "messages": [
+                            {
+                                "type": "businessEvent",
+                                "id": generateUUID(),
+                                "time": Date.now(),
+                                "name": eventSlug,
+                                "attributes": attributes
+                            }
+                        ]
+                    });
+
+                    const requestOptions = {
+                        method: "POST",
+                        headers: myHeaders,
+                        body: raw,
+                        redirect: "follow"
+                    };
+
+                    fetch(useStg ? "https://stg-entry.metrix.ir/" : "https://entry.metrix.ir/", requestOptions)
+                        .then((response) => response.text())
+                        .then((result) => {
+                            console.log(result)
+                            Toast.fire({
+                                icon: "success",
+                                title: "Event Sent"
+                            });
+                        })
+                        .catch((error) => console.error(error));
+                }
+            }
+
             document.getElementById('sample-event-c-slug-input').oninput = (e) => {
                 const value = e.target.value;
                 document.getElementById('sample-event-button').disabled = !(value.length === 5)
+            }
+
+            document.getElementById('sample-business-event-c-slug-input').oninput = (e) => {
+                const value = e.target.value;
+                document.getElementById('sample-business-event-button').disabled = !(value.length === 5)
             }
 
             document.getElementById('stg-checkbox').onchange = (event) => {
