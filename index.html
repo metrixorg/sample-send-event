@@ -404,7 +404,7 @@
     <script>
         const script = document.createElement('script');
         const useStg = localStorage.getItem("useStg") && (localStorage.getItem("useStg") !== 'false');
-        script.src = useStg ? './metrix.umd-latest-stg.js' : 'https://cdn.metrix.ir/sdk/web/metrix.umd-2.4.0.js';
+        script.src = useStg ? './metrix.umd-latest-stg.js' : 'https://cdn.metrix.ir/sdk/web/metrix.umd-2.5.0.js';
         const main = document.getElementsByTagName('main')[0];
         script.onload = () => {
             mainThread()
