@@ -84,13 +84,20 @@
       button:disabled {
         background-color: #9ca3af;
         cursor: not-allowed;
+        color: white;
       }
 
       .row {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 16px;
+        gap: 40px;
         align-items: center;
+      }
+
+      .row > div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
       }
 
       .flex-between {
@@ -127,6 +134,7 @@
         h3 {
           font-size: 1.1rem;
         }
+
       }
     </style>
 
@@ -191,7 +199,7 @@
         <div class="card">
           <h3>User Authentication</h3>
           <div class="row">
-            <input id="login-input" placeholder="customer@mycompany.com" />
+            <input id="login-input" placeholder="customer@mycompany.com" style="margin-bottom: 0"/>
             <button id="login-button">Login</button>
             <button id="logout-button" style="background-color: #f59e0b">
               Logout
@@ -202,10 +210,12 @@
 
         <!-- USER ATTRIBUTES -->
         <div class="card">
-          <input type="checkbox" id="show-user-send" />
-          <label for="show-user-send"
-            ><strong>Show user attribute section</strong></label
-          >
+          <div style="display: flex">
+            <label for="show-user-send"
+              ><strong>Show user attribute section</strong></label
+            >
+            <input type="checkbox" id="show-user-send" style="width: 50px; margin-bottom: 8px" />
+          </div>
 
           <div id="send-user-box" hidden>
             <div class="row">
