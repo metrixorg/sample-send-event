@@ -58,7 +58,7 @@
       }
 
       input {
-        width:95% !important;
+        width: 95% !important;
       }
 
       input:focus {
@@ -71,7 +71,7 @@
         font-weight: 500;
       }
 
-      button {
+      .btn-primary {
         background-color: #2563eb;
         color: white;
         font-weight: 600;
@@ -79,16 +79,24 @@
         border: none;
         transition: 0.2s ease;
         margin-top: 10px;
+        padding: 10px;
+        border-radius: 8px;
       }
-
-      button:hover {
+      .btn-primary:hover {
         background-color: #1e40af;
       }
-
-      button:disabled {
-        background-color: #9ca3af;
-        cursor: not-allowed;
+      .btn-danger {
+        background-color: #ef4444;
         color: white;
+      }
+      .btn-warning {
+        background-color: #f59e0b;
+        color: white;
+      }
+      .btn-disabled {
+        background-color: #9ca3af;
+        color: white;
+        cursor: not-allowed;
       }
 
       .row {
@@ -101,7 +109,15 @@
       .row > div {
         display: flex;
         flex-direction: column;
+        gap: 8px;
+      }
+
+      .attr-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 10px;
+        margin-bottom: 8px;
+        align-items: center;
       }
 
       .flex-between {
@@ -116,6 +132,21 @@
         border-top: 1px solid #e5e7eb;
       }
 
+      .add-btn {
+        background-color: #10b981;
+        width: auto;
+        padding: 8px 14px;
+        margin-top: 8px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .add-btn:hover {
+        background-color: #059669;
+      }
+
       #init-status,
       #login-status {
         font-weight: bold;
@@ -126,15 +157,12 @@
         main {
           padding: 16px;
         }
-
         .card {
           padding: 16px;
         }
-
         button {
           font-size: 0.95rem;
         }
-
         h3 {
           font-size: 1.1rem;
         }
@@ -167,7 +195,7 @@
             <input
               type="checkbox"
               id="stg-checkbox"
-              style="transform: scale(1.3)"
+              style="transform: scale(1.2)"
             />
           </div>
         </div>
@@ -189,11 +217,14 @@
           </div>
         </div>
         <div class="row">
-          <button id="init-button">Initialize SDK</button>
-          <button id="close-button" style="background-color: #ef4444">
-            Close Session
-          </button>
+          <div>
+            <button id="init-button" class="btn-primary">Initialize SDK</button>
+          </div>
+          <div>
+            <button id="close-button" class="btn-danger">Close Session</button>
+          </div>
         </div>
+
         <p id="init-status" style="color: red">Not initialized</p>
       </div>
 
@@ -202,15 +233,19 @@
         <div class="card">
           <h3>User Authentication</h3>
           <div class="row">
-            <input
-              id="login-input"
-              placeholder="customer@mycompany.com"
-              style="margin-bottom: 0"
-            />
-            <button id="login-button">Login</button>
-            <button id="logout-button" style="background-color: #f59e0b">
-              Logout
-            </button>
+            <div>
+              <input
+                id="login-input"
+                placeholder="customer@mycompany.com"
+                style="margin-bottom: 0"
+              />
+            </div>
+            <div>
+              <button id="login-button" class="btn-primary">Login</button>
+            </div>
+            <div>
+              <button id="logout-button" class="btn-warning">Logout</button>
+            </div>
           </div>
           <p id="login-status" style="color: red">You're anonymous</p>
         </div>
@@ -263,16 +298,17 @@
             </div>
 
             <h4>Custom Attributes:</h4>
-            <div class="row">
-              <input id="user-c-att-key-input" placeholder="Key 1" />
-              <input id="user-c-att-value-input" placeholder="Value 1" />
+            <div id="user-attributes-container"></div>
+            <div
+              style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px"
+            >
+              <button id="add-user-attribute" class="add-btn">
+                + Add Attribute
+              </button>
+              <button id="user-att-button" class="btn-primary">
+                Send User Attributes
+              </button>
             </div>
-            <div class="row">
-              <input id="user-c-att-key2-input" placeholder="Key 2" />
-              <input id="user-c-att-value2-input" placeholder="Value 2" />
-            </div>
-
-            <button id="user-att-button">Send User Attributes</button>
           </div>
         </div>
 
@@ -280,110 +316,133 @@
         <div id="event-box">
           <div class="card">
             <h3>Send Event by Slug</h3>
-            <input id="sample-event-c-slug-input" placeholder="Event Slug" />
-            <div class="row">
-              <input id="sample-event-c-att-key-input" placeholder="Key 1" />
+            <div style="margin-bottom: 8px">
               <input
-                id="sample-event-c-att-value-input"
-                placeholder="Value 1"
+                id="sample-event-c-slug-input"
+                placeholder="Event Slug (5 chars required)"
               />
             </div>
-            <div class="row">
-              <input id="sample-event-c-att-key2-input" placeholder="Key 2" />
-              <input
-                id="sample-event-c-att-value2-input"
-                placeholder="Value 2"
-              />
+            <div id="slug-attributes-container"></div>
+            <div
+              style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px"
+            >
+              <button id="add-slug-attribute" class="add-btn">
+                + Add Attribute
+              </button>
+              <button id="sample-event-button" class="btn-primary" disabled>
+                Send Event by Slug
+              </button>
             </div>
-            <button id="sample-event-button" disabled>
-              Send Event by Slug
-            </button>
           </div>
 
           <div class="card">
             <h3>Send Event by Name</h3>
-            <input id="sample-name-event-c-input" placeholder="Event Name" />
-            <div class="row">
+            <div style="margin-bottom: 8px">
               <input
-                id="sample-name-event-c-att-key-input"
-                placeholder="Key 1"
-              />
-              <input
-                id="sample-name-event-c-att-value-input"
-                placeholder="Value 1"
+                id="sample-name-event-c-input"
+                class="field-input"
+                placeholder="Event Name"
               />
             </div>
-            <div class="row">
-              <input
-                id="sample-name-event-c-att-key2-input"
-                placeholder="Key 2"
-              />
-              <input
-                id="sample-name-event-c-att-value2-input"
-                placeholder="Value 2"
-              />
+            <div id="name-attributes-container"></div>
+            <div
+              style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px"
+            >
+              <button id="add-name-attribute" class="add-btn">
+                + Add Attribute
+              </button>
+              <button
+                id="sample-name-event-button"
+                class="btn-primary"
+                disabled
+              >
+                Send Event by Name
+              </button>
             </div>
-            <button id="sample-name-event-button" disabled>
-              Send Event by Name
-            </button>
           </div>
 
           <div class="card">
             <h3>Business Event by Slug</h3>
-            <input
-              id="sample-business-event-c-slug-input"
-              placeholder="Business Event Slug"
-            />
-            <div class="row">
+            <div style="margin-bottom: 8px">
               <input
-                id="sample-business-event-c-att-key-input"
-                placeholder="Key 1"
-              />
-              <input
-                id="sample-business-event-c-att-value-input"
-                placeholder="Value 1"
+                id="sample-business-event-c-slug-input"
+                class="field-input"
+                placeholder="Business Event Slug (5 chars required)"
               />
             </div>
-            <div class="row">
-              <input
-                id="sample-business-event-c-att-key2-input"
-                placeholder="Key 2"
-              />
-              <input
-                id="sample-business-event-c-att-value2-input"
-                placeholder="Value 2"
-              />
+            <div id="business-attributes-container"></div>
+            <div
+              style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px"
+            >
+              <button id="add-business-attribute" class="add-btn">
+                + Add Attribute
+              </button>
+              <button
+                id="sample-business-event-button"
+                class="btn-primary"
+                disabled
+              >
+                Send Business Event
+              </button>
             </div>
-            <button id="sample-business-event-button" disabled>
-              Send Business Event
-            </button>
           </div>
         </div>
       </div>
 
-      <!-- Main JS -->
       <script>
         function mainThread() {
+          function createAttributeRow(container) {
+            const row = document.createElement("div");
+            row.className = "attr-row";
+            const key = document.createElement("input");
+            key.className = "attr-key field-input";
+            key.placeholder = "Key";
+            const value = document.createElement("input");
+            value.className = "attr-value field-input";
+            value.placeholder = "Value";
+            row.appendChild(key);
+            row.appendChild(value);
+            container.appendChild(row);
+          }
+
+          function setupAddButton(addBtnId, containerId) {
+            const addBtn = document.getElementById(addBtnId);
+            const container = document.getElementById(containerId);
+            createAttributeRow(container);
+            addBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              createAttributeRow(container);
+            });
+          }
+
           let username = localStorage.getItem("username");
           const appId = localStorage.getItem("appId");
           const apiKey = localStorage.getItem("apiKey");
           const publicKey = localStorage.getItem("publicKey");
 
           const stgCheckbox = document.getElementById("stg-checkbox");
-          stgCheckbox.checked = useStg;
+          if (typeof useStg !== "undefined") stgCheckbox.checked = useStg;
+
+          setupAddButton("add-user-attribute", "user-attributes-container");
+          setupAddButton("add-slug-attribute", "slug-attributes-container");
+          setupAddButton("add-name-attribute", "name-attributes-container");
+          setupAddButton(
+            "add-business-attribute",
+            "business-attributes-container"
+          );
 
           if (appId && apiKey) {
-            const config = {
+            const cfg = {
               push: {
                 enabled: !!publicKey,
                 publicKey: publicKey || undefined,
                 showBell: !!publicKey,
               },
-              onSiteMessaging: {
-                enabled: true,
-              },
+              onSiteMessaging: { enabled: true },
             };
-            Metrix.init(appId, apiKey, config);
+            if (window.Metrix && typeof Metrix.init === "function") {
+              Metrix.init(appId, apiKey, cfg);
+            }
             document.getElementById("init-appid-input").value = appId;
             document.getElementById("init-apikey-input").value = apiKey;
             document.getElementById("init-public-key-input").value =
@@ -400,47 +459,57 @@
               "You're logged in as: " + username;
             document.getElementById("login-status").style.color = "green";
             document.getElementById("login-button").disabled = true;
-            username = document.getElementById("login-input").value = username;
+            document.getElementById("login-input").value = username;
             document.getElementById("event-box").removeAttribute("hidden");
-            Metrix.authorizeUser(username);
+            if (window.Metrix && typeof Metrix.authorizeUser === "function") {
+              Metrix.authorizeUser(username);
+            }
           }
 
           document.getElementById("init-button").onclick = () => {
-            const appId = document.getElementById("init-appid-input").value;
-            const apiKey = document.getElementById("init-apikey-input").value;
-            const publicKey = document.getElementById(
-              "init-public-key-input"
-            ).value;
+            const appIdInput = document
+              .getElementById("init-appid-input")
+              .value.trim();
+            const apiKeyInput = document
+              .getElementById("init-apikey-input")
+              .value.trim();
+            const publicKeyInput = document
+              .getElementById("init-public-key-input")
+              .value.trim();
 
-            if (appId.length && apiKey.length) {
-              localStorage.setItem("appId", appId);
-              localStorage.setItem("apiKey", apiKey);
-              if (publicKey.length) {
-                localStorage.setItem("publicKey", publicKey);
-              } else {
-                localStorage.removeItem("publicKey");
-              }
-
-              document.getElementById("init-status").innerText =
-                "Metrix initialized";
-              document.getElementById("init-status").style.color = "green";
-
-              const config = {
-                push: {
-                  enabled: !!publicKey.length,
-                  publicKey: publicKey || undefined,
-                  showBell: !!publicKey.length,
-                },
-                onSiteMessaging: {
-                  enabled: true,
-                },
-              };
-
-              Metrix.init(appId, apiKey, config);
-              document
-                .getElementById("send-event-box")
-                .removeAttribute("hidden");
+            if (!appIdInput || !apiKeyInput) {
+              Toast.fire({
+                icon: "error",
+                title: "App ID and API Key are required",
+              });
+              return;
             }
+
+            localStorage.setItem("appId", appIdInput);
+            localStorage.setItem("apiKey", apiKeyInput);
+            if (publicKeyInput)
+              localStorage.setItem("publicKey", publicKeyInput);
+            else localStorage.removeItem("publicKey");
+
+            const cfg = {
+              push: {
+                enabled: !!publicKeyInput,
+                publicKey: publicKeyInput || undefined,
+                showBell: !!publicKeyInput,
+              },
+              onSiteMessaging: { enabled: true },
+            };
+
+            if (window.Metrix && typeof Metrix.init === "function") {
+              Metrix.init(appIdInput, apiKeyInput, cfg);
+            }
+
+            document.getElementById("init-status").innerText =
+              "Metrix initialized";
+            document.getElementById("init-status").style.color = "green";
+            document.getElementById("send-event-box").removeAttribute("hidden");
+            document.getElementById("init-button").disabled = true;
+            Toast.fire({ icon: "success", title: "SDK Initialized" });
           };
 
           function closeSession() {
@@ -448,63 +517,76 @@
             localStorage.removeItem("apiKey");
             localStorage.removeItem("username");
             localStorage.removeItem("publicKey");
-            Metrix.deauthorizeUser();
+            if (window.Metrix && typeof Metrix.deauthorizeUser === "function") {
+              Metrix.deauthorizeUser();
+            }
             window.location.reload();
           }
-
-          document.getElementById("close-button").onclick = () => {
-            closeSession();
-          };
+          document.getElementById("close-button").onclick = closeSession;
 
           document.getElementById("login-button").onclick = () => {
-            username = document.getElementById("login-input").value;
-            if (username.length) {
-              localStorage.setItem("username", username);
-              Metrix.authorizeUser(username);
-              document.getElementById("login-status").innerHTML =
-                "You're logged in as: " + username;
-              document.getElementById("login-status").style.color = "green";
-              document.getElementById("event-box").removeAttribute("hidden");
+            const u = document.getElementById("login-input").value.trim();
+            if (!u) return;
+            localStorage.setItem("username", u);
+            if (window.Metrix && typeof Metrix.authorizeUser === "function") {
+              Metrix.authorizeUser(u);
             }
+            document.getElementById("login-status").innerHTML =
+              "You're logged in as: " + u;
+            document.getElementById("login-status").style.color = "green";
+            document.getElementById("login-button").disabled = true;
+            document.getElementById("event-box").removeAttribute("hidden");
+            Toast.fire({ icon: "success", title: "Logged in" });
           };
 
           document.getElementById("logout-button").onclick = () => {
-            username = undefined;
             localStorage.removeItem("username");
-            Metrix.deauthorizeUser();
+            if (window.Metrix && typeof Metrix.deauthorizeUser === "function") {
+              Metrix.deauthorizeUser();
+            }
             document.getElementById("login-button").disabled = false;
             document.getElementById("login-input").value = "";
             document.getElementById("login-status").innerHTML =
               "You're logged out!!!";
             document.getElementById("login-status").style.color = "red";
             document.getElementById("event-box").setAttribute("hidden", "");
+            Toast.fire({ icon: "success", title: "Logged out" });
           };
 
           document.getElementById("show-user-send").onchange = (e) => {
             const checked = e.target.checked;
             const userSendBox = document.getElementById("send-user-box");
-            if (checked) {
-              userSendBox.removeAttribute("hidden");
-            } else {
-              userSendBox.setAttribute("hidden", "");
-            }
+            if (checked) userSendBox.removeAttribute("hidden");
+            else userSendBox.setAttribute("hidden", "");
           };
 
+          function collectAttributesFrom(containerId) {
+            const container = document.getElementById(containerId);
+            const keys = container.querySelectorAll(".attr-key");
+            const vals = container.querySelectorAll(".attr-value");
+            const attrs = {};
+            keys.forEach((kEl, idx) => {
+              const k = kEl.value.trim();
+              const v =
+                vals[idx] && vals[idx].value ? vals[idx].value.trim() : "";
+              if (k) attrs[k] = v;
+            });
+            return attrs;
+          }
+
           document.getElementById("user-att-button").onclick = () => {
-            const firstname = document.getElementById("first-name-input").value;
-            const lastname = document.getElementById("last-name-input").value;
-            const phone = document.getElementById("phone-input").value;
-            const email = document.getElementById("email-input").value;
-            const city = document.getElementById("city-input").value;
-            const birthDate = document.getElementById("birth-date-input").value;
-            const key = document.getElementById("user-c-att-key-input").value;
-            const value = document.getElementById(
-              "user-c-att-value-input"
-            ).value;
-            const key2 = document.getElementById("user-c-att-key2-input").value;
-            const value2 = document.getElementById(
-              "user-c-att-value2-input"
-            ).value;
+            const firstname = document
+              .getElementById("first-name-input")
+              .value.trim();
+            const lastname = document
+              .getElementById("last-name-input")
+              .value.trim();
+            const phone = document.getElementById("phone-input").value.trim();
+            const email = document.getElementById("email-input").value.trim();
+            const city = document.getElementById("city-input").value.trim();
+            const birthDate = document
+              .getElementById("birth-date-input")
+              .value.trim();
 
             if (firstname) Metrix.setFirstName(firstname);
             if (lastname) Metrix.setLastName(lastname);
@@ -512,88 +594,74 @@
             if (email) Metrix.setEmail(email);
             if (city) Metrix.setCity(city);
             if (birthDate) Metrix.setBirthday(birthDate);
-            if (key && value) Metrix.setCustomAttribute(key, value);
-            if (key2 && value2) Metrix.setCustomAttribute(key2, value2);
 
-            Toast.fire({
-              icon: "success",
-              title: "User Updated",
+            const userAttrs = collectAttributesFrom(
+              "user-attributes-container"
+            );
+            Object.keys(userAttrs).forEach((k) => {
+              Metrix.setCustomAttribute(k, userAttrs[k]);
             });
+
+            Toast.fire({ icon: "success", title: "User Updated" });
           };
 
           document.getElementById("sample-event-button").onclick = () => {
-            const key = document.getElementById(
-              "sample-event-c-att-key-input"
-            )?.value;
-            const value = document.getElementById(
-              "sample-event-c-att-value-input"
-            )?.value;
-            const key2 = document.getElementById(
-              "sample-event-c-att-key2-input"
-            )?.value;
-            const value2 = document.getElementById(
-              "sample-event-c-att-value2-input"
-            )?.value;
-
-            const attributes = {};
-            if (key && value) attributes[key] = value;
-            if (key2 && value2) attributes[key2] = value2;
-            const eventSlug = document.getElementById(
-              "sample-event-c-slug-input"
-            ).value;
-            if (eventSlug) {
-              Metrix.newEvent(eventSlug, attributes);
-              Toast.fire({
-                icon: "success",
-                title: "Event Sent By Slug",
-              });
-            }
+            const slug = document
+              .getElementById("sample-event-c-slug-input")
+              .value.trim();
+            if (!slug) return;
+            const attrs = collectAttributesFrom("slug-attributes-container");
+            Metrix.newEvent(slug, attrs);
+            Toast.fire({ icon: "success", title: "Event Sent By Slug" });
+          };
+          document.getElementById("sample-event-c-slug-input").oninput = (
+            e
+          ) => {
+            const v = e.target.value;
+            document.getElementById("sample-event-button").disabled = !(
+              v.length === 5
+            );
           };
 
           document.getElementById("sample-name-event-button").onclick = () => {
-            const key = document.getElementById(
-              "sample-name-event-c-att-key-input"
-            )?.value;
-            const value = document.getElementById(
-              "sample-name-event-c-att-value-input"
-            )?.value;
-            const key2 = document.getElementById(
-              "sample-name-event-c-att-key2-input"
-            )?.value;
-            const value2 = document.getElementById(
-              "sample-name-event-c-att-value2-input"
-            )?.value;
-
-            const attributes = {};
-            if (key && value) attributes[key] = value;
-            if (key2 && value2) attributes[key2] = value2;
-            const eventName = document.getElementById(
-              "sample-name-event-c-input"
-            ).value;
-            if (eventName) {
-              // FIX: Use the same method as slug events
-              Metrix.newEvent(eventName, attributes);
-              Toast.fire({
-                icon: "success",
-                title: "Event Sent By Name",
-              });
-            }
+            const name = document
+              .getElementById("sample-name-event-c-input")
+              .value.trim();
+            if (!name) return;
+            const attrs = collectAttributesFrom("name-attributes-container");
+            Metrix.newEvent(name, attrs);
+            Toast.fire({ icon: "success", title: "Event Sent By Name" });
           };
-
+          document.getElementById("sample-name-event-c-input").oninput = (
+            e
+          ) => {
+            const v = e.target.value;
+            document.getElementById("sample-name-event-button").disabled =
+              !v.length;
+          };
           document.getElementById("sample-business-event-button").onclick =
             () => {
-              const key = document.getElementById(
-                "sample-business-event-c-att-key-input"
-              )?.value;
-              const value = document.getElementById(
-                "sample-business-event-c-att-value-input"
-              )?.value;
-              const key2 = document.getElementById(
-                "sample-business-event-c-att-key2-input"
-              )?.value;
-              const value2 = document.getElementById(
-                "sample-business-event-c-att-value2-input"
-              )?.value;
+              const slug = document
+                .getElementById("sample-business-event-c-slug-input")
+                .value.trim();
+              if (!slug) return;
+
+              const attributes = collectAttributesFrom(
+                "business-attributes-container"
+              );
+
+              // read current apiKey & appId saved in localStorage (or inputs)
+              const curApiKey =
+                localStorage.getItem("apiKey") ||
+                document.getElementById("init-apikey-input").value.trim();
+              const curAppId =
+                localStorage.getItem("appId") ||
+                document.getElementById("init-appid-input").value.trim();
+
+              const myHeaders = new Headers();
+              myHeaders.append("content-type", "application/json");
+              if (curApiKey) myHeaders.append("x-api-key", curApiKey);
+              if (curAppId) myHeaders.append("x-application-id", curAppId);
 
               function generateUUID() {
                 return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
@@ -606,86 +674,53 @@
                 );
               }
 
-              const attributes = {};
-              if (key && value) attributes[key] = value;
-              if (key2 && value2) attributes[key2] = value2;
-              const eventSlug = document.getElementById(
-                "sample-business-event-c-slug-input"
-              ).value;
-              if (eventSlug) {
-                const myHeaders = new Headers();
-                myHeaders.append("content-type", "application/json");
-                myHeaders.append("x-api-key", apiKey);
-                myHeaders.append("x-application-id", appId);
+              const raw = JSON.stringify({
+                messages: [
+                  {
+                    type: "businessEvent",
+                    id: generateUUID(),
+                    time: Date.now(),
+                    name: slug,
+                    attributes: attributes,
+                  },
+                ],
+              });
 
-                const raw = JSON.stringify({
-                  messages: [
-                    {
-                      type: "businessEvent",
-                      id: generateUUID(),
-                      time: Date.now(),
-                      name: eventSlug,
-                      attributes: attributes,
-                    },
-                  ],
+              const requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow",
+              };
+
+              fetch(
+                typeof useStg !== "undefined" && useStg
+                  ? "https://stg-entry.metrix.ir/"
+                  : "https://entry.metrix.ir/",
+                requestOptions
+              )
+                .then((response) => response.text())
+                .then((result) => {
+                  console.log(result);
+                  Toast.fire({ icon: "success", title: "Business Event Sent" });
+                })
+                .catch((error) => {
+                  console.error(error);
+                  Toast.fire({ icon: "error", title: "Business Event failed" });
                 });
-
-                const requestOptions = {
-                  method: "POST",
-                  headers: myHeaders,
-                  body: raw,
-                  redirect: "follow",
-                };
-
-                fetch(
-                  useStg
-                    ? "https://stg-entry.metrix.ir/"
-                    : "https://entry.metrix.ir/",
-                  requestOptions
-                )
-                  .then((response) => response.text())
-                  .then((result) => {
-                    console.log(result);
-                    Toast.fire({
-                      icon: "success",
-                      title: "Event Sent",
-                    });
-                  })
-                  .catch((error) => console.error(error));
-              }
             };
-
-          document.getElementById("sample-name-event-c-input").oninput = (
-            e
-          ) => {
-            const value = e.target.value;
-            document.getElementById("sample-name-event-button").disabled =
-              !value.length;
-          };
-
-          document.getElementById("sample-event-c-slug-input").oninput = (
-            e
-          ) => {
-            const value = e.target.value;
-            document.getElementById("sample-event-button").disabled = !(
-              value.length === 5
-            );
-          };
-
           document.getElementById(
             "sample-business-event-c-slug-input"
           ).oninput = (e) => {
-            const value = e.target.value;
+            const v = e.target.value;
             document.getElementById("sample-business-event-button").disabled =
-              !(value.length === 5);
+              !(v.length === 5);
           };
 
           document.getElementById("stg-checkbox").onchange = (event) => {
             const checkboxValue = event.target.checked;
             localStorage.setItem("useStg", checkboxValue);
-            setTimeout(() => {
-              closeSession();
-            });
+            setTimeout(() => closeSession(), 50);
           };
         }
       </script>
@@ -698,11 +733,14 @@
         script.src = useStg
           ? "./metrix.umd-latest-stg.js"
           : "https://cdn.metrix.ir/sdk/web/metrix.umd-2.5.0.js";
-        const main = document.getElementsByTagName("main")[0];
         script.onload = () => {
-          mainThread();
+          try {
+            mainThread();
+          } catch (err) {
+            console.error(err);
+          }
         };
-        main.appendChild(script);
+        document.getElementsByTagName("main")[0].appendChild(script);
       </script>
     </main>
   </body>
