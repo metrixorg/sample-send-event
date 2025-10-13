@@ -116,7 +116,6 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
-        margin-bottom: 8px;
         align-items: center;
       }
 
@@ -229,7 +228,7 @@
       </div>
 
       <!-- EVENT SECTION -->
-      <div id="send-event-box" hidden>
+      <div id="send-event-box">
         <div class="card">
           <h3>User Authentication</h3>
           <div class="row">
@@ -263,7 +262,7 @@
             />
           </div>
 
-          <div id="send-user-box" hidden>
+          <div id="send-user-box">
             <div class="row">
               <div>
                 <label>First Name:</label>
@@ -451,7 +450,6 @@
               "Metrix initialized";
             document.getElementById("init-status").style.color = "green";
             document.getElementById("send-event-box").removeAttribute("hidden");
-            document.getElementById("init-button").disabled = true;
           }
 
           if (username) {
@@ -508,7 +506,6 @@
               "Metrix initialized";
             document.getElementById("init-status").style.color = "green";
             document.getElementById("send-event-box").removeAttribute("hidden");
-            document.getElementById("init-button").disabled = true;
             Toast.fire({ icon: "success", title: "SDK Initialized" });
           };
 
@@ -693,12 +690,12 @@
                 redirect: "follow",
               };
 
-              fetch(
+              const endpoint =
                 typeof useStg !== "undefined" && useStg
                   ? "https://stg-entry.metrix.ir/"
-                  : "https://entry.metrix.ir/",
-                requestOptions
-              )
+                  : "https://entry.metrix.ir/";
+
+              fetch(endpoint, requestOptions)
                 .then((response) => response.text())
                 .then((result) => {
                   console.log(result);
